@@ -1,0 +1,130 @@
+<app-navbar></app-navbar>
+
+<div class="wrapper-card">
+  <button class="add-button" (click)="addUser()">Add</button>
+
+  <div *ngFor="let user of userData" class="user-card">
+    <h2>
+      {{ user.namaDepan }} <span>{{ user.namaBelakang }}</span>
+    </h2>
+    <div class="user-details">
+      <p>Email: {{ user.email }}</p>
+      <p>Jenis Kelamin: {{ user.jenisKelamin }}</p>
+    </div>
+    <p>Tanggal Lahir: {{ user.tanggalLahir | date }}</p>
+    <button class="edit-button" (click)="editUser(user.id)">Edit</button>
+    <button class="delete-button" (click)="deleteUser(user.id)">Delete</button>
+  </div>
+
+  <div *ngIf="editingUserId !== null" class="edit-wrapper">
+    <h2>Edit User</h2>
+    <form (submit)="saveUser()">
+      <!-- Create form inputs for editing user details -->
+      <label for="editedName">First Name:</label>
+      <input
+        type="text"
+        id="editedName"
+        [(ngModel)]="editedUser.namaDepan"
+        name="namaDepan"
+        required
+      />
+
+      <label for="editedLastName">Last Name:</label>
+      <input
+        type="text"
+        id="editedLastName"
+        [(ngModel)]="editedUser.namaBelakang"
+        name="namaBelakang"
+        required
+      />
+
+      <label for="editedEmail">Email:</label>
+      <input
+        type="email"
+        id="editedEmail"
+        [(ngModel)]="editedUser.email"
+        name="email"
+        required
+      />
+
+      <label for="editedGender">Gender:</label>
+      <input
+        type="text"
+        id="editedGender"
+        [(ngModel)]="editedUser.jenisKelamin"
+        name="jenisKelamin"
+        required
+      />
+
+      <label for="editedBirthdate">Birthdate:</label>
+      <input
+        type="date"
+        id="editedBirthdate"
+        [(ngModel)]="editedUser.tanggalLahir"
+        name="tanggalLahir"
+        required
+      />
+
+      <button type="submit">Save</button>
+      <button (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Add User Form -->
+  <div *ngIf="isAddUserFormVisible" class="add-user-form-wrapper">
+    <div class="add-user-form">
+      <h2>Add User</h2>
+      <form (submit)="addNewUser()">
+        <label for="newFirstName">First Name:</label>
+        <input
+          type="text"
+          id="newFirstName"
+          [(ngModel)]="newUser.namaDepan"
+          name="namaDepan"
+          required
+        />
+
+        <label for="newLastName">Last Name:</label>
+        <input
+          type="text"
+          id="newLastName"
+          [(ngModel)]="newUser.namaBelakang"
+          name="namaBelakang"
+          required
+        />
+
+        <label for="newEmail">Email:</label>
+        <input
+          type="email"
+          id="newEmail"
+          [(ngModel)]="newUser.email"
+          name="email"
+          required
+        />
+
+        <label for="newGender">Gender:</label>
+        <input
+          type="text"
+          id="newGender"
+          [(ngModel)]="newUser.jenisKelamin"
+          name="jenisKelamin"
+          required
+        />
+
+        <label for="newBirthdate">Birthdate:</label>
+        <input
+          type="date"
+          id="newBirthdate"
+          [(ngModel)]="newUser.tanggalLahir"
+          name="tanggalLahir"
+          required
+        />
+
+        <button type="submit">Add User</button>
+        <button type="button" class="cancelButton" (click)="addUser()">
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

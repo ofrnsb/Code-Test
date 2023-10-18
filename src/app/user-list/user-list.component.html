@@ -1,0 +1,177 @@
+<app-navbar></app-navbar>
+
+<div class="wrapper-card">
+  <button class="add-button" (click)="addprod()">Add</button>
+
+  <!-- Menampilkan menu transaksi -->
+  <div class="transaction-menu">
+    <h2>Transaction Menu</h2>
+    <div>
+      <label for="transactionType">Transaction Type:</label>
+      <select
+        id="transactionType"
+        [(ngModel)]="transactionType"
+        name="TransactionType"
+        required
+      >
+        <option value="Stock In">Stock In</option>
+        <option value="Stock Out">Stock Out</option>
+      </select>
+    </div>
+    <div>
+      <label for="transactionQuantity">Transaction Quantity:</label>
+      <input
+        type="number"
+        id="transactionQuantity"
+        [(ngModel)]="transactionQuantity"
+        name="TransactionQuantity"
+        required
+      />
+    </div>
+    <div>
+      <label>Selected Products:</label>
+      <ul>
+        <li *ngFor="let product of selectedProducts">
+          {{ product.name }}
+          <button (click)="removeFromTransaction(product)">Remove</button>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <button (click)="performTransaction()">Perform Transaction</button>
+    </div>
+  </div>
+
+  <!-- Menampilkan riwayat transaksi -->
+  <div class="transaction-history">
+    <h2>Transaction History</h2>
+    <ul>
+      <li *ngFor="let transaction of transactionHistory"></li>
+      <li *ngFor="let transaction of transactionHistory">
+        {{ transaction.type }} - Products:
+        {{ getTransactionProducts(transaction) }} - Quantity:
+        {{ transaction.quantity }} - Date:
+        {{ transaction.date | date : "short" }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Tampilkan daftar produk -->
+  <div *ngFor="let prod of prodData" class="prod-card">
+    <div class="prod-details">
+      <p>Name: {{ prod.name }}</p>
+      <p>Description: {{ prod.description }}</p>
+      <img src="{{ prod.gambar }}" alt="gambar" width="200" height="200" />
+      <p>category: {{ prod.category }}</p>
+      <p>Stock: {{ prod.stock }}</p>
+    </div>
+
+    <button class="add-to-transaction-button" (click)="addToTransaction(prod)">
+      Add to Transaction
+    </button>
+    <button class="edit-button" (click)="editprod(prod.id)">Edit</button>
+    <button class="delete-button" (click)="deleteprod(prod.id)">Delete</button>
+  </div>
+
+  <div *ngIf="editingprodId !== null" class="edit-wrapper">
+    <h2>Edit Product</h2>
+    <form (submit)="saveprod()">
+      <label for="editedName">Name:</label>
+      <input
+        type="text"
+        id="editedName"
+        [(ngModel)]="editedprod.name"
+        name="Name"
+        required
+      />
+
+      <label for="editedDescription">Description:</label>
+      <input
+        type="text"
+        id="editedDescription"
+        [(ngModel)]="editedprod.description"
+        name="Description"
+        required
+      />
+
+      <label for="editedGambar">Gambar:</label>
+      <input
+        type="text"
+        id="editedGambar"
+        [(ngModel)]="editedprod.gambar"
+        name="Gambar"
+        required
+      />
+
+      <label for="editedCategory">Category:</label>
+      <input
+        type="text"
+        id="editedCategory"
+        [(ngModel)]="editedprod.category"
+        name="Category"
+        required
+      />
+
+      <button type="submit">Save</button>
+      <button (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Add prod Form -->
+  <div *ngIf="isAddprodFormVisible" class="add-prod-form-wrapper">
+    <div class="add-prod-form">
+      <h2>Add Product</h2>
+      <form (submit)="addNewprod()">
+        <label for="editedName">Name:</label>
+        <input
+          type="text"
+          id="editedName"
+          [(ngModel)]="newprod.name"
+          name="Name"
+          required
+        />
+
+        <label for="editedBirthdate">Description:</label>
+        <input
+          type="text"
+          id="editedBirthdate"
+          [(ngModel)]="newprod.description"
+          name="tanggalLahir"
+          required
+        />
+
+        <label for="editedName">Gambar:</label>
+        <input
+          type="text"
+          id="editedName"
+          [(ngModel)]="newprod.gambar"
+          name="Description"
+          required
+        />
+
+        <label for="editedName">Category:</label>
+        <input
+          type="text"
+          id="editedName"
+          [(ngModel)]="newprod.category"
+          name="Category"
+          required
+        />
+
+        <label for="editedName">Stock:</label>
+        <input
+          type="text"
+          id="editedName"
+          [(ngModel)]="newprod.stock"
+          name="Stock"
+          required
+        />
+
+        <button type="submit">Add Product</button>
+        <button type="button" class="cancelButton" (click)="addprod()">
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

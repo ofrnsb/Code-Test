@@ -1,0 +1,39 @@
+.navbar {
+  background-color: #333; /* Background color for the navbar */
+  padding: 10px; /* Adjust the padding to your preference */
+  text-align: right; /* Align the content to the right */
+  display: flex;
+  justify-content: space-between;
+  /* Add additional styles as needed */
+}
+
+.nav-button {
+  background-color: #007bff; /* Background color for the buttons */
+  color: #fff; /* Text color for the buttons */
+  padding: 5px 10px; /* Adjust the padding to your preference */
+  border: none; /* Remove button border */
+  cursor: pointer; /* Show a hand cursor on hover */
+  border-radius: 4px; /* Add rounded corners to the buttons */
+  margin-right: 10px; /* Add some spacing between buttons */
+
+  /* Add additional styles as needed */
+}
+
+.nav-button:hover {
+  background-color: #0056b3; /* Change the background color on hover */
+}
+
+.logout-button {
+  background-color: #ff6347; /* Background color for the "Log Out" button */
+  color: #fff; /* Text color for the "Log Out" button */
+  padding: 5px 10px; /* Adjust the padding to your preference */
+  border: none; /* Remove button border */
+  cursor: pointer; /* Show a hand cursor on hover */
+  border-radius: 4px; /* Add rounded corners to the "Log Out" button */
+
+  /* Add additional styles as needed */
+}
+
+.logout-button:hover {
+  background-color: #ff4500; /* Change the background color on hover */
+}

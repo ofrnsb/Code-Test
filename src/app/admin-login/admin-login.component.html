@@ -1,0 +1,36 @@
+<div class="login-container">
+  <h2>Admin Login</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        required
+        [(ngModel)]="username"
+      />
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        required
+        [(ngModel)]="password"
+      />
+    </div>
+    <button type="submit">Login</button>
+  </form>
+
+  <div *ngIf="isAuthenticated; else failedAuthentication">
+    <p>Authentication Successful! Redirecting...</p>
+    <!-- You can add your navigation logic here -->
+  </div>
+  <ng-template #failedAuthentication>
+    <p *ngIf="username || password">
+      Authentication failed. Please check your credentials.
+    </p>
+  </ng-template>
+</div>

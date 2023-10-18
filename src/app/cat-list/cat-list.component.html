@@ -1,0 +1,73 @@
+<app-navbar></app-navbar>
+
+<div class="wrapper-card">
+  <button class="add-button" (click)="addCat()">Add</button>
+
+  <div *ngFor="let Cat of catData" class="Cat-card">
+    <div class="Cat-details">
+      <p>Name: {{ Cat.name }}</p>
+      <p>Description: {{ Cat.description }}</p>
+    </div>
+
+    <button class="edit-button" (click)="editCat(Cat.id)">Edit</button>
+    <button class="delete-button" (click)="deleteCat(Cat.id)">Delete</button>
+  </div>
+
+  <div *ngIf="editingCatId !== null" class="edit-wrapper">
+    <h2>Edit Cat</h2>
+    <form (submit)="saveCat()">
+      <!-- Create form inputs for editing Cat details -->
+      <label for="editedName">Name:</label>
+      <input
+        type="text"
+        id="editedName"
+        [(ngModel)]="editedCat.name"
+        name="namaDepan"
+        required
+      />
+
+      <label for="editedBirthdate">Description:</label>
+      <input
+        type="text"
+        id="editedBirthdate"
+        [(ngModel)]="editedCat.description"
+        name="tanggalLahir"
+        required
+      />
+
+      <button type="submit">Save</button>
+      <button (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Add Cat Form -->
+  <div *ngIf="isAddCatFormVisible" class="add-Cat-form-wrapper">
+    <div class="add-Cat-form">
+      <h2>Add Category</h2>
+      <form (submit)="addNewCat()">
+        <label for="newFirstName">Name:</label>
+        <input
+          type="text"
+          id="newFirstName"
+          [(ngModel)]="newCat.name"
+          name="namaDepan"
+          required
+        />
+
+        <label for="newLastName">Description:</label>
+        <input
+          type="text"
+          id="newLastName"
+          [(ngModel)]="newCat.description"
+          name="namaBelakang"
+          required
+        />
+
+        <button type="submit">Add Category</button>
+        <button type="button" class="cancelButton" (click)="addCat()">
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
