@@ -74,50 +74,71 @@
   </div>
 
   <div *ngIf="editingprodId !== null" class="edit-wrapper">
-    <h2>Edit Product</h2>
-    <form (submit)="saveprod()">
-      <label for="editedName">Name:</label>
-      <input
-        type="text"
-        id="editedName"
-        [(ngModel)]="editedprod.name"
-        name="Name"
-        required
-      />
+    <div class="edit-prod-form">
+      <h2>Edit Product</h2>
+      <form (submit)="saveprod()" [formGroup]="form">
+        <label for="editedName">Name:</label>
+        <input
+          formControlName="name"
+          type="text"
+          id="editedName"
+          [(ngModel)]="editedprod.name"
+          name="Name"
+          required
+        />
+        <div *ngIf="form.get('name')?.hasError('minLength')">
+          <span class="error-message">Name is required.</span>
+        </div>
+        <div *ngIf="form.get('name')?.hasError('required')">
+          <span class="error-message"
+            >Name must be at least 6 characters long.</span
+          >
+        </div>
 
-      <label for="editedDescription">Description:</label>
-      <input
-        type="text"
-        id="editedDescription"
-        [(ngModel)]="editedprod.description"
-        name="Description"
-        required
-      />
+        <label for="editedDescription">Description:</label>
+        <input
+          type="text"
+          id="editedDescription"
+          [(ngModel)]="editedprod.description"
+          name="Description"
+          required
+        />
+        <div *ngIf="form.get('description')?.hasError('minLength')">
+          <span class="error-message">description is required.</span>
+        </div>
+        <div *ngIf="form.get('description')?.hasError('required')">
+          <span class="error-message"
+            >description must be at least 6 characters long.</span
+          >
+        </div>
 
-      <label for="editedGambar">Gambar:</label>
-      <input
-        type="text"
-        id="editedGambar"
-        [(ngModel)]="editedprod.gambar"
-        name="Gambar"
-        required
-      />
+        <label for="editedGambar">Gambar:</label>
+        <input
+          type="text"
+          id="editedGambar"
+          [(ngModel)]="editedprod.gambar"
+          name="Gambar"
+          required
+        />
 
-      <label for="editedCategory">Category:</label>
-      <input
-        type="text"
-        id="editedCategory"
-        [(ngModel)]="editedprod.category"
-        name="Category"
-        required
-      />
+        <label for="editedCategory">Category:</label>
+        <input
+          type="text"
+          id="editedCategory"
+          [(ngModel)]="editedprod.category"
+          name="Category"
+          required
+        />
+        <div *ngIf="form.get('category')?.hasError('required')">
+          <span class="error-message">Category is required.</span>
+        </div>
 
-      <button type="submit">Save</button>
-      <button (click)="cancelEdit()">Cancel</button>
-    </form>
+        <button type="submit">Save</button>
+        <button (click)="cancelEdit()" class="cancelButton">Cancel</button>
+      </form>
+    </div>
   </div>
 
-  <!-- Add prod Form -->
   <div *ngIf="isAddprodFormVisible" class="add-prod-form-wrapper">
     <div class="add-prod-form">
       <h2>Add Product</h2>
@@ -130,6 +151,14 @@
           name="Name"
           required
         />
+        <div *ngIf="form.get('name')?.hasError('minLength')">
+          <span class="error-message">Name is required.</span>
+        </div>
+        <div *ngIf="form.get('name')?.hasError('required')">
+          <span class="error-message"
+            >Name must be at least 6 characters long.</span
+          >
+        </div>
 
         <label for="editedBirthdate">Description:</label>
         <input
@@ -139,6 +168,14 @@
           name="tanggalLahir"
           required
         />
+        <div *ngIf="form.get('description')?.hasError('minLength')">
+          <span class="error-message">description is required.</span>
+        </div>
+        <div *ngIf="form.get('description')?.hasError('required')">
+          <span class="error-message"
+            >description must be at least 6 characters long.</span
+          >
+        </div>
 
         <label for="editedName">Gambar:</label>
         <input
@@ -157,6 +194,9 @@
           name="Category"
           required
         />
+        <div *ngIf="form.get('category')?.hasError('required')">
+          <span class="error-message">Category is required.</span>
+        </div>
 
         <label for="editedName">Stock:</label>
         <input
@@ -166,6 +206,9 @@
           name="Stock"
           required
         />
+        <div *ngIf="form.get('stock')?.hasError('required')">
+          <span class="error-message">Stock is required.</span>
+        </div>
 
         <button type="submit">Add Product</button>
         <button type="button" class="cancelButton" (click)="addprod()">

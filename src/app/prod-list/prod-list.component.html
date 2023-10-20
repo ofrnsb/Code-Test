@@ -17,57 +17,88 @@
   </div>
 
   <div *ngIf="editingUserId !== null" class="edit-wrapper">
-    <h2>Edit User</h2>
-    <form (submit)="saveUser()">
-      <!-- Create form inputs for editing user details -->
-      <label for="editedName">First Name:</label>
-      <input
-        type="text"
-        id="editedName"
-        [(ngModel)]="editedUser.namaDepan"
-        name="namaDepan"
-        required
-      />
+    <div class="edit-user-form">
+      <h2>Edit User</h2>
+      <form (submit)="saveUser()" [formGroup]="form">
+        <!-- Create form inputs for editing user details -->
+        <label for="editedName">First Name:</label>
+        <input
+          formControlName="name"
+          type="text"
+          id="editedName"
+          [(ngModel)]="editedUser.namaDepan"
+          name="namaDepan"
+          required
+        />
+        <div *ngIf="form.get('name')?.hasError('required')">
+          <span class="error-message">name is required.</span>
+        </div>
+        <div *ngIf="form.get('name')?.hasError('minlength')">
+          <span class="error-message"
+            >Name must be at least 6 characters long.</span
+          >
+        </div>
 
-      <label for="editedLastName">Last Name:</label>
-      <input
-        type="text"
-        id="editedLastName"
-        [(ngModel)]="editedUser.namaBelakang"
-        name="namaBelakang"
-        required
-      />
+        <label for="editedLastName">Last Name:</label>
+        <input
+          type="text"
+          formControlName="lastName"
+          id="editedLastName"
+          [(ngModel)]="editedUser.namaBelakang"
+          name="namaBelakang"
+          required
+        />
+        <div *ngIf="form.get('lastName')?.hasError('required')">
+          <span class="error-message">Last name is required.</span>
+        </div>
+        <div *ngIf="form.get('lastName')?.hasError('minlength')">
+          <span class="error-message"
+            >Last name must be at least 6 characters long.</span
+          >
+        </div>
 
-      <label for="editedEmail">Email:</label>
-      <input
-        type="email"
-        id="editedEmail"
-        [(ngModel)]="editedUser.email"
-        name="email"
-        required
-      />
+        <label for="editedEmail">Email:</label>
+        <input
+          type="email"
+          formControlName="email"
+          id="editedEmail"
+          [(ngModel)]="editedUser.email"
+          name="email"
+          required
+        />
+        <div *ngIf="form.get('email')?.hasError('email')">
+          <span class="error-message">Must be in email format.</span>
+        </div>
 
-      <label for="editedGender">Gender:</label>
-      <input
-        type="text"
-        id="editedGender"
-        [(ngModel)]="editedUser.jenisKelamin"
-        name="jenisKelamin"
-        required
-      />
+        <label for="editedGender">Gender:</label>
+        <input
+          type="text"
+          formControlName="gender"
+          id="editedGender"
+          [(ngModel)]="editedUser.jenisKelamin"
+          name="jenisKelamin"
+          required
+        />
+        <div *ngIf="form.get('gender')?.hasError('required')">
+          <span class="error-message">Gender is required.</span>
+        </div>
 
-      <label for="editedBirthdate">Birthdate:</label>
-      <input
-        type="date"
-        id="editedBirthdate"
-        [(ngModel)]="editedUser.tanggalLahir"
-        name="tanggalLahir"
-        required
-      />
+        <label for="editedBirthdate">Birthdate:</label>
+        <input
+          type="date"
+          id="editedBirthdate"
+          [(ngModel)]="editedUser.tanggalLahir"
+          name="tanggalLahir"
+          required
+        />
+        <div *ngIf="form.get('birthDate')?.hasError('required')">
+          <span class="error-message">Birth Date is required.</span>
+        </div>
 
-      <button type="submit">Save</button>
-      <button (click)="cancelEdit()">Cancel</button>
-    </form>
+        <button type="submit">Save</button>
+        <button (click)="cancelEdit()">Cancel</button>
+      </form>
+    </div>
   </div>
 
   <!-- Add User Form -->
@@ -83,6 +114,14 @@
           name="namaDepan"
           required
         />
+        <div *ngIf="form.get('name')?.hasError('required')">
+          <span class="error-message">name is required.</span>
+        </div>
+        <div *ngIf="form.get('name')?.hasError('minlength')">
+          <span class="error-message"
+            >Name must be at least 6 characters long.</span
+          >
+        </div>
 
         <label for="newLastName">Last Name:</label>
         <input
@@ -92,6 +131,14 @@
           name="namaBelakang"
           required
         />
+        <div *ngIf="form.get('lastName')?.hasError('required')">
+          <span class="error-message">Last name is required.</span>
+        </div>
+        <div *ngIf="form.get('lastName')?.hasError('minlength')">
+          <span class="error-message"
+            >Last name must be at least 6 characters long.</span
+          >
+        </div>
 
         <label for="newEmail">Email:</label>
         <input
@@ -101,6 +148,9 @@
           name="email"
           required
         />
+        <div *ngIf="form.get('email')?.hasError('email')">
+          <span class="error-message">Must be in email format.</span>
+        </div>
 
         <label for="newGender">Gender:</label>
         <input
@@ -110,6 +160,9 @@
           name="jenisKelamin"
           required
         />
+        <div *ngIf="form.get('gender')?.hasError('required')">
+          <span class="error-message">Gender is required.</span>
+        </div>
 
         <label for="newBirthdate">Birthdate:</label>
         <input
@@ -119,6 +172,9 @@
           name="tanggalLahir"
           required
         />
+        <div *ngIf="form.get('birthDate')?.hasError('required')">
+          <span class="error-message">Birth Date is required.</span>
+        </div>
 
         <button type="submit">Add User</button>
         <button type="button" class="cancelButton" (click)="addUser()">

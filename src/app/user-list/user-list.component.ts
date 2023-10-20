@@ -2,6 +2,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpCallService } from 'src/services/http.service.';
 import { prodDataList } from '../Modals/Modals';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-user-list',
@@ -25,10 +31,42 @@ export class UserListComponent {
   // Riwayat transaksi
   transactionHistory: any[] = [];
 
-  constructor(public restApi: HttpCallService, private router: Router) {}
+  constructor(
+    public restApi: HttpCallService,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {}
+
+  form: FormGroup = new FormGroup({
+    name: new FormControl(''),
+    description: new FormControl(''),
+    category: new FormControl(''),
+    stock: new FormControl(''),
+  });
 
   ngOnInit() {
     this.getData();
+
+    this.form = this.formBuilder.group({
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(20),
+        ],
+      ],
+      description: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(1000),
+        ],
+      ],
+      category: ['', [Validators.required, Validators.required]],
+      stock: ['', [Validators.required, Validators.required]],
+    });
   }
 
   addprod() {

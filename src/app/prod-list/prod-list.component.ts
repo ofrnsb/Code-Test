@@ -3,6 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { userDataList } from '../Modals/Modals';
 import { HttpCallService } from 'src/services/http.service.';
 import { Router } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-prod-list',
@@ -10,7 +16,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./prod-list.component.css'],
 })
 export class ProdListComponent implements OnInit {
-  constructor(public restApi: HttpCallService, private router: Router) {}
+  constructor(
+    public restApi: HttpCallService,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {}
 
   userData: userDataList[] = [];
   url: string = 'https://652e8c840b8d8ddac0b194c7.mockapi.io/admin/userData';
@@ -21,8 +31,39 @@ export class ProdListComponent implements OnInit {
 
   isAddUserFormVisible: boolean = false;
 
+  form: FormGroup = new FormGroup({
+    name: new FormControl(''),
+    lastName: new FormControl(''),
+    email: new FormControl(''),
+    gender: new FormControl(''),
+    birthDate: new FormControl(''),
+  });
+
   ngOnInit() {
     this.getData();
+
+    this.form = this.formBuilder.group({
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(20),
+        ],
+      ],
+      lastName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(20),
+        ],
+      ],
+      email: ['', [Validators.required, Validators.email]],
+
+      gender: ['', [Validators.required, Validators.required]],
+      birthDate: ['', [Validators.required]],
+    });
   }
 
   addUser() {

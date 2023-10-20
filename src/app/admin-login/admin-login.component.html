@@ -1,25 +1,49 @@
 <div class="login-container">
   <h2>Admin Login</h2>
-  <form (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <div class="form-group">
       <label for="username">Username:</label>
       <input
+        formControlName="userName"
         type="text"
         id="username"
         name="username"
         required
         [(ngModel)]="username"
       />
+      <div *ngIf="form.get('userName')?.hasError('required')">
+        <span class="error-message">Username is required.</span>
+      </div>
+      <div *ngIf="form.get('userName')?.hasError('minlength')">
+        <span class="error-message"
+          >Username must be at least 8 characters long.</span
+        >
+      </div>
+      <div *ngIf="form.get('userName')?.hasError('maxlength')">
+        <span class="error-message">Username cannot exceed 20 characters.</span>
+      </div>
     </div>
     <div class="form-group">
       <label for="password">Password:</label>
       <input
+        formControlName="password"
         type="password"
         id="password"
         name="password"
         required
         [(ngModel)]="password"
       />
+      <div *ngIf="form.get('password')?.hasError('required')">
+        <span class="error-message">Password is required.</span>
+      </div>
+      <div *ngIf="form.get('password')?.hasError('minlength')">
+        <span class="error-message"
+          >Password must be at least 8 characters long.</span
+        >
+      </div>
+      <div *ngIf="form.get('password')?.hasError('maxlength')">
+        <span class="error-message">Password cannot exceed 20 characters.</span>
+      </div>
     </div>
     <button type="submit">Login</button>
   </form>

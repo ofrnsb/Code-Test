@@ -9,7 +9,7 @@ import { CatListComponent } from './cat-list/cat-list.component';
 const routes: Routes = [
   { path: 'admin-login', component: AdminLoginComponent },
   { path: 'us-list', component: ProdListComponent, canActivate: [AuthGuard] },
-  { path: 'prod-list', component: UserListComponent },
+  { path: 'prod-list', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'cat-list', component: CatListComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/admin-login', pathMatch: 'full' },
 ];
